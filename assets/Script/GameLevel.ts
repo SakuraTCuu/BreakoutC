@@ -74,7 +74,7 @@ export default class GameLevel extends cc.Component {
                 let itemScript = item.getComponent(Briks_Item);
                 let bkData: bkInfo;
                 if (tileData[j][i] == 1) {
-                    let pos = cc.v2(unit_width * i, -unit_height * j);
+                    let pos = cc.v2(unit_width * i + unit_width / 2 - levelWidth / 2, -(unit_height * j - levelHeight / 2 + unit_height / 2));
                     let size = cc.size(unit_width, unit_height);
                     let color = cc.Color.RED;
                     bkData = {
@@ -84,12 +84,12 @@ export default class GameLevel extends cc.Component {
                         isSoild: true,
                         isDestroyed: false
                     }
+                    item.name = j + "*" + i;
                     itemScript.init(bkData);
-                    item.name = i + "*" + j;
                     this.bricks.push(item);
                     this.node.addChild(item);
                 } else if (tileData[j][i] > 1) {
-                    let color;
+                    let color = cc.Color.GREEN;
                     // if (tileData[j][i] == 2) {
                     //     color = cc.Color.GRAY;
                     // } else if (tileData[j][i] == 3) {
@@ -99,8 +99,10 @@ export default class GameLevel extends cc.Component {
                     // } else if (tileData[j][i] == 5) {
                     //     color = cc.Color.ORANGE;
                     // }
-                    
-                    let pos = cc.v2(unit_width * i, -unit_height * j);
+
+                    // let pos = cc.v2(unit_width * i, -unit_height * j);
+                    // let pos = cc.v2(unit_width * i - levelWidth / 2, -(unit_height * j - levelHeight / 2));
+                    let pos = cc.v2(unit_width * i + unit_width / 2 - levelWidth / 2, -(unit_height * j - levelHeight / 2 + unit_height / 2));
                     let size = cc.size(unit_width, unit_height);
                     bkData = {
                         pos: pos,
@@ -109,8 +111,8 @@ export default class GameLevel extends cc.Component {
                         isSoild: false,
                         isDestroyed: false
                     }
+                    item.name = j + "*" + i;
                     itemScript.init(bkData);
-                    item.name = i + "*" + j;
                     this.bricks.push(item);
                     this.node.addChild(item);
                 }
